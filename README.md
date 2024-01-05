@@ -25,3 +25,5 @@ Moving the new docker-compose to... /volume1/@appstore/ContainerManager/usr/bin/
 Installation completed successfully!
 Current Docker-Compose version: 2.23.3
 ```
+
+Uses realpath to find the location of your docker-compose
