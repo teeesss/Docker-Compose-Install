@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Prerequisites: curl & jq
+# Prerequisites: curl jq realpath
 
 # Find the real location of docker-compose without following the symlink
 DOCKER_COMPOSE_PATH=$(readlink -f $(command -v docker-compose))
