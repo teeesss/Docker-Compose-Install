@@ -7,6 +7,7 @@ Example of the output
 ```
 ./docker-compose-install.sh
 Current Docker-Compose version: 2.23.0
+Installed at: /volume1/@appstore/ContainerManager/usr/bin/docker-compose
 Retrieving last 5 Docker Compose Releases...
 1. v2.24.0-birthday.10 2023-12-11 14:29:25ZZ
 2. v2.23.3 2023-11-23 08:49:38ZZ
@@ -20,10 +21,9 @@ Downloading Docker-Compose v2.23.3...
                                  Dload  Upload   Total   Spent    Left  Speed
   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
 100 56.9M  100 56.9M    0     0  10.2M      0  0:00:05  0:00:05 --:--:-- 12.1M
-Renaming docker-compose...
-Moving the new docker-compose to... /volume1/@appstore/ContainerManager/usr/bin/docker-compose
 Installation completed successfully!
 Current Docker-Compose version: 2.23.3
+Installed at: /volume1/@appstore/ContainerManager/usr/bin/docker-compose
 ```
 
 Uses realpath to find the location of your docker-compose
