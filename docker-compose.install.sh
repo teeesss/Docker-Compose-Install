@@ -2,17 +2,28 @@
 
 # Prerequisites: curl jq realpath
 
-# Find the real location of docker-compose without following the symlink
-DOCKER_COMPOSE_PATH=$(readlink -f $(command -v docker-compose))
+# Check if the target installation directory exists
+if [ -d "/volume1/@appstore/ContainerManager/usr/bin/" ]; then
+    INSTALL_DIR="/volume1/@appstore/ContainerManager/usr/bin"
+else
+    # If the directory doesn't exist, use the custom install directory
+    INSTALL_DIR="/usr/local/lib/docker/cli-plugins/"
 
-# Set executable permissions for docker-compose
-sudo chmod 755 "$DOCKER_COMPOSE_PATH"
+    # Check if the custom directory exists, create it if not
+    if [ ! -d "$INSTALL_DIR" ]; then
+        echo "Creating custom install directory: $INSTALL_DIR"
+        mkdir -p "$INSTALL_DIR"
+    fi
+fi
 
-# Function to display the current installed Docker-Compose version
+DOCKER_COMPOSE_PATH="$INSTALL_DIR/docker-compose"
+
+# Function to display the current installed Docker-Compose version and path
 function show_current_version() {
-    if [ -f "$DOCKER_COMPOSE_PATH" ]; then
+    if [ -x "$DOCKER_COMPOSE_PATH" ]; then
         current_version=$("$DOCKER_COMPOSE_PATH" version --short)
         echo "Current Docker-Compose version: $current_version"
+        echo "Installed at: $DOCKER_COMPOSE_PATH"
     else
         echo "Docker-Compose is not currently installed."
     fi
@@ -36,21 +47,14 @@ function install_docker_compose() {
     echo "Version changing from $current_version to version $version"
 
     echo "Downloading Docker-Compose $version..."
-    curl -L "$download_url" -o docker-compose
-
-    echo "Renaming docker-compose..."
-    mv "$DOCKER_COMPOSE_PATH" "${DOCKER_COMPOSE_PATH}-backup"
-
-    echo -n "Moving the new docker-compose to... "
-    mv docker-compose "$(dirname "$DOCKER_COMPOSE_PATH")" 2>&1 | tee -a installation_log.txt
-    echo "$(dirname "$DOCKER_COMPOSE_PATH")/docker-compose" # Display the full path
-
-    # Reset permissions after moving
-    sudo chmod 755 "$(dirname "$DOCKER_COMPOSE_PATH")/docker-compose"
+    curl -L "$download_url" -o "$DOCKER_COMPOSE_PATH"
 
     echo "Installation completed successfully!"
 
-    # Display the current version after installation
+    # Make the downloaded file executable
+    chmod +x "$DOCKER_COMPOSE_PATH"
+
+    # Display the current version and installation path after installation
     show_current_version
 }
 
