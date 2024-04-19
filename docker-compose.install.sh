@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# Version 1.0
 # Prerequisites: curl jq realpath
 
 # Check if the target installation directory exists
