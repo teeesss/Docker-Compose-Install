@@ -1,29 +1,49 @@
 # Docker-Compose-Install
-Docker Compose Installation Script
+Docker Compose Installation Script for Synology NAS
 
 
 Example of the output
 
 ```
 ./docker-compose-install.sh
-Current Docker-Compose version: 2.24.2
-Installed at: /volume1/@appstore/ContainerManager/usr/bin/docker-compose
-Retrieving last 5 Docker Compose Releases...
-1. v2.24.3 2024-01-24 18:01:55ZZ
-2. v2.24.2 2024-01-22 16:33:37ZZ
-3. v2.24.1 2024-01-18 10:02:11ZZ
-4. v2.24.0 2024-01-11 13:23:00ZZ
-5. v2.24.0-birthday.10 2023-12-11 14:29:25ZZ
-Enter the number of the Docker-Compose version to install: 1
-Version changing from 2.24.2 to version v2.24.3
-Downloading Docker-Compose v2.24.3...
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-100 58.1M  100 58.1M    0     0  32.2M      0  0:00:01  0:00:01 --:--:-- 46.6M
-Installation completed successfully!
-Current Docker-Compose version: 2.24.3
-Installed at: /volume1/@appstore/ContainerManager/usr/bin/docker-compose
-```
+--- Docker Compose Updater v3.0 ---
+--- 1. Checking Prerequisites ---
+All dependencies are satisfied.
 
-Uses realpath to find the location of your docker-compose
+================================= IMPORTANT ==================================
+NOTE: You are running this on a Synology NAS.
+Updating the 'Container Manager' package from the Package Center will
+likely OVERWRITE the docker-compose version you install with this script.
+If that happens, simply run this script again.
+============================================================================
+
+--- 2. Locating Docker Compose ---
+Current Version: 2.36.2
+Installed at:    /volume1/@appstore/ContainerManager/usr/bin/docker-compose
+
+--- 3. Fetching Available Releases from GitHub ---
+  1. v2.37.0         2025-06-05 10:11
+  2. v2.36.2         2025-05-23 09:21 (current)
+  3. v2.36.1         2025-05-19 07:26
+  4. v2.36.0         2025-05-07 06:54
+  5. v2.35.1         2025-04-17 09:29
+
+Enter the number of the version to install (or 'q' to quit): 1
+--- 4. Starting Update Process ---
+Target version: v2.37.0
+Downloading from: https://github.com/docker/compose/releases/download/v2.37.0/docker-compose-Linux-x86_64
+Download complete. ✓
+Backing up existing version...
+./dockerc.sh: line 177: 29762 Terminated              ( while true; do
+    for s in / - \\ \|;
+    do
+        printf "\rDownloading... %s" "$s"; sleep 0.1;
+    done;
+done )
+Backup created at: /volume1/@appstore/ContainerManager/usr/bin/docker-compose.bak-20250608-232833
+Installing new version...
+--- 5. Verifying Installation ---
+Update successful!
+New Docker Compose Version: 2.37.0
+
+All done!
